@@ -1,0 +1,23 @@
+<%- include('head') %> <%- include('header') %>
+
+<div class="create-page">
+	<form action="/members/create" method="post">
+		<label for="name">Namn:</label>
+		<input type="text" id="name" name="name" />
+
+		<label for="email">Email:</label>
+		<input type="email" id="email" name="email" />
+
+		<label for="phoneNumber">Telefonnummer:</label>
+		<input type="tel" id="phoneNumber" name="phoneNumber" />
+
+		<label for="date">Datum:</label>
+		<input type="date" id="date" name="date" />
+
+		<label for="dogName">Hundens namn:</label>
+		<input type="text" id="dogName" name="dogName" />
+
+		<button>Skicka</button>
+	</form>
+</div>
+<%- include('footer') %>

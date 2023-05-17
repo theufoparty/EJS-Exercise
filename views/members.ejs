@@ -1,0 +1,12 @@
+<%- include('head') %> <%- include('header') %>
+<div class="members-page">
+	<ul>
+		<% members.forEach((member) => { %>
+		<li>
+			<a href="/member/<%= member._id %>"> <%= member.name%> ägare av <%= member.dogName %> </a>
+		</li>
+		<% }); %>
+	</ul>
+</div>
+
+<%- include('footer') %>

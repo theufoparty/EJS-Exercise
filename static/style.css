@@ -1,0 +1,119 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: "Bellefair", serif;
+	list-style: none;
+	text-decoration: none;
+	background: black;
+	color: white;
+}
+
+.header {
+	position: fixed;
+	right: 0;
+	top: 0;
+	z-index: 1000;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 33px 9%;
+	background: transparent;
+}
+
+footer {
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	z-index: 1000;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 33px 9%;
+	background: transparent;
+}
+
+.logo {
+	font-size: 30px;
+	color: white;
+}
+
+.navlist {
+	display: flex;
+}
+
+.navlist a {
+	color: white;
+	margin-left: 60px;
+	font-size: 15px;
+	border-bottom: 2px solid transparent;
+	transition: all 0.55s ease;
+}
+
+.navlist a:hover {
+	border-bottom: 2px solid white;
+}
+
+.member,
+.members-page,
+.create-page,
+.intro-text {
+	height: 100%;
+	width: 100%;
+	min-height: 100vh;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	align-content: center;
+	justify-content: center;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	width: 90%;
+	max-width: 600px;
+}
+
+label {
+	padding: 10px 10px 10px 0;
+	font-size: 18px;
+}
+
+input {
+	box-sizing: border-box;
+	width: 100%;
+	padding: 10px;
+	outline: 0;
+	border: 1px solid white;
+	border-radius: 4px;
+	color: #fff;
+	background: transparent;
+	font-size: 16px;
+}
+
+button {
+	margin-top: 2rem;
+	font-size: 18px;
+	border: none;
+}
+
+/* TYPEOGRAPHY */
+
+:root {
+	--fs-900: clamp(1rem, 6vw + 1rem, 9.375rem);
+	--fs-800: 3.5rem;
+	--fs-700: 1.5rem;
+	--fs-600: 1rem;
+	--fs-500: 1rem;
+	--fs-400: 0.9375rem;
+	--fs-300: 0.5rem;
+	--fs-200: 0.6rem;
+
+	--ff-serif: "Bellefair", serif;
+	--ff-sans-cond: "Barlow Condensed", sans-serif;
+	--ff-sans-normal: "Barlow", sans-serif;
+}

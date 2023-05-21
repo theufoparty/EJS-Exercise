@@ -1,12 +1,24 @@
 <%- include('head') %> <%- include('header') %>
-<div class="members-page">
-	<ul>
-		<% members.forEach((member) => { %>
-		<li>
-			<a href="/member/<%= member._id %>"> <%= member.name%> ägare av <%= member.dogName %> </a>
-		</li>
-		<% }); %>
-	</ul>
-</div>
+<section class="content-container">
+	<div class="members-content-container">
+		<div class="sorting-option-container">
+			<a class="sorting-link" href="/members?sort=ascending">SORT A-Ö</a>
+			<a class="sorting-link" href="/members?sort=decending">SORT Ö-A</a>
+			<a class="sorting-link" href="/members">SORT BY DATABASE</a>
+		</div>
+
+		<div class="members-container">
+			<ul>
+				<% members.forEach((member) => { %>
+				<li>
+					<a href="/member/<%= member._id %>">
+						<span class="underline"><%= member.name%></span> Owner of <%= member.dogName %>
+					</a>
+				</li>
+				<% }); %>
+			</ul>
+		</div>
+	</div>
+</section>
 
 <%- include('footer') %>

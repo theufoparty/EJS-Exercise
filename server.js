@@ -22,65 +22,96 @@ app.get("/members/create", (req, res) => {
 });
 
 app.post("/members/create", async (req, res) => {
-	const dateAdded = new Date();
-	await membersCollection.insertOne({ ...req.body, date: dateAdded });
-	res.redirect("/members");
+	try {
+		const dateAdded = new Date();
+		await membersCollection.insertOne({ ...req.body, date: dateAdded });
+		res.redirect("/members");
+	} catch (error) {
+		console.error(error);
+		res.render("error");
+	}
 });
 
 app.get("/members", async (req, res) => {
-	const sort = req.query.sort;
-	let result = membersCollection.find();
-	if (sort === "ascending") {
-		result = result.sort({ name: 1 });
-	} else if (sort === "decending") {
-		result = result.sort({ name: -1 });
+	try {
+		const sort = req.query.sort;
+		let result = membersCollection.find();
+		if (sort === "ascending") {
+			result = result.sort({ name: 1 });
+		} else if (sort === "decending") {
+			result = result.sort({ name: -1 });
+		}
+		const members = await result.toArray();
+		res.render("members", { members });
+	} catch (error) {
+		console.error(error);
+		res.render("error");
 	}
-	const members = await result.toArray();
-	res.render("members", { members });
 });
 
 app.get("/member/:id", async (req, res) => {
-	const temp = new ObjectId(req.params.id);
-	const member = await membersCollection.findOne({ _id: temp });
+	try {
+		const temp = new ObjectId(req.params.id);
+		const member = await membersCollection.findOne({ _id: temp });
+		if (!member) {
+			throw new Error(`No member with id: ${req.params.id}`);
+		}
+		const dateString = member.date.toLocaleDateString("sv-SE");
 
-	const dateString = member.date.toLocaleDateString("sv-SE");
-
-	res.render("member", {
-		name: member.name,
-		email: member.email,
-		phoneNumber: member.phoneNumber,
-		date: dateString,
-		dogName: member.dogName,
-		id: member._id,
-	});
+		res.render("member", {
+			name: member.name,
+			email: member.email,
+			phoneNumber: member.phoneNumber,
+			date: dateString,
+			dogName: member.dogName,
+			id: member._id,
+		});
+	} catch (error) {
+		console.error(error);
+		res.render("error");
+	}
 });
 
 app.get("/member/edit/:id", async (req, res) => {
-	console.log("HEJ");
-	const temp = new ObjectId(req.params.id);
-	const member = await membersCollection.findOne({ _id: temp });
-	res.render("edit", {
-		name: member.name,
-		email: member.email,
-		phoneNumber: member.phoneNumber,
-		date: member.date,
-		dogName: member.dogName,
-		id: member._id,
-	});
+	try {
+		const temp = new ObjectId(req.params.id);
+		const member = await membersCollection.findOne({ _id: temp });
+		res.render("edit", {
+			name: member.name,
+			email: member.email,
+			phoneNumber: member.phoneNumber,
+			date: member.date,
+			dogName: member.dogName,
+			id: member._id,
+		});
+	} catch (error) {
+		console.error(error);
+		res.render("error");
+	}
 });
 
 app.get("/member/delete/:id", async (req, res) => {
-	const temp = new ObjectId(req.params.id);
-	await membersCollection.deleteOne({
-		_id: temp,
-	});
-	res.redirect("/members");
+	try {
+		const temp = new ObjectId(req.params.id);
+		await membersCollection.deleteOne({
+			_id: temp,
+		});
+		res.redirect("/members");
+	} catch (error) {
+		console.error(error);
+		res.render("error");
+	}
 });
 
 app.post("/member/edit/:id", async (req, res) => {
-	const temp = new ObjectId(req.params.id);
-	await membersCollection.updateOne({ _id: temp }, { $set: req.body });
-	res.redirect("/members");
+	try {
+		const temp = new ObjectId(req.params.id);
+		await membersCollection.updateOne({ _id: temp }, { $set: req.body });
+		res.redirect("/members");
+	} catch (error) {
+		console.error(error);
+		res.render("error");
+	}
 });
 
 app.listen(3000, () => {
